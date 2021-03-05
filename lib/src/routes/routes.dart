@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../pages/home_page.dart';
-import '../pages/challenges/login_challenge.dart';
+import '../apps-ui/login_challenge.dart';
 
 Map<String, WidgetBuilder> getRoutes() {
   return <String, WidgetBuilder>{
