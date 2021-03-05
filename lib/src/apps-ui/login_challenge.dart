@@ -11,88 +11,48 @@ class LoginChallenge extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           reverse: true,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: Container(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 50.0,
-                ),
-                Title(),
-                SizedBox(
-                  height: 40.0,
-                ),
-                ButtonGoogle(),
-                SizedBox(
-                  height: 20.0,
-                ),
-                ButtonFacebook(),
-                SizedBox(
-                  height: 40.0,
-                ),
-                TextDivider(),
-                SizedBox(
-                  height: 40.0,
-                ),
-                InputUsername(),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Password',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  .copyWith(color: Colors.blueGrey.shade700)),
-                          SizedBox(
-                            height: 8.0,
-                          ),
-                          TextField(
-                            style: TextStyle(fontSize: 22.0),
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: new OutlineInputBorder(
-                                  borderRadius: new BorderRadius.only(
-                                      topLeft: Radius.circular(10.0),
-                                      topRight: Radius.circular(10.0),
-                                      bottomLeft: Radius.circular(10.0),
-                                      bottomRight: Radius.circular(10.0)),
-                                  borderSide: new BorderSide(
-                                      color: Colors.blueGrey.shade400)),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 15.0),
-                              focusedBorder: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                      color: Colors.blueGrey.shade900)),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).viewInsets.bottom,
-                ),
-              ],
-            )),
-          ),
+          child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Title(),
+                  const ButtonWithLogo(
+                      svgLogo: 'assets/icons/google-logo.svg',
+                      textButton: 'Use Google Account'),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  const ButtonWithLogo(
+                      svgLogo: 'assets/icons/facebook_logo.svg',
+                      textButton: 'Use Facebook Account'),
+                  const TextDivider(),
+                  const CustomInput(
+                    labelText: 'Username',
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  const CustomInput(labelText: 'Password', isPassword: true),
+                  SizedBox(
+                    height: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                ],
+              )),
         ),
       ),
     );
   }
 }
 
-class InputUsername extends StatelessWidget {
-  const InputUsername({
+class CustomInput extends StatelessWidget {
+  final String labelText;
+  final bool isPassword;
+
+  const CustomInput({
     Key key,
+    @required this.labelText,
+    this.isPassword = false,
   }) : super(key: key);
 
   @override
@@ -103,7 +63,7 @@ class InputUsername extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Username',
+              Text(this.labelText,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1
@@ -112,6 +72,7 @@ class InputUsername extends StatelessWidget {
                 height: 8.0,
               ),
               TextField(
+                obscureText: this.isPassword,
                 style: TextStyle(fontSize: 22.0),
                 decoration: InputDecoration(
                     border: new OutlineInputBorder(
@@ -144,86 +105,47 @@ class TextDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Divider(
-            thickness: 2.0,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: Divider(
+              thickness: 2.0,
+            ),
           ),
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        Text(
-          'Or',
-          style: Theme.of(context)
-              .textTheme
-              .subtitle1
-              .copyWith(color: Colors.blueGrey.shade800),
-        ),
-        SizedBox(
-          width: 10.0,
-        ),
-        Expanded(
-          child: Divider(
-            thickness: 2.0,
+          SizedBox(
+            width: 10.0,
           ),
-        ),
-      ],
-    );
-  }
-}
-
-class ButtonFacebook extends StatelessWidget {
-  const ButtonFacebook({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
+          Text(
+            'Or',
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(color: Colors.blueGrey.shade800),
+          ),
+          SizedBox(
+            width: 10.0,
+          ),
+          Expanded(
+            child: Divider(
+              thickness: 2.0,
             ),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  spreadRadius: 5.0,
-                  blurRadius: 10.0)
-            ]),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/icons/facebook_logo.svg',
-              height: 25.0,
-            ),
-            SizedBox(
-              width: 20.0,
-            ),
-            Text(
-              'Use Facebook Account',
-              style: Theme.of(context).textTheme.subtitle1.copyWith(
-                  fontWeight: FontWeight.bold, color: Colors.blueGrey.shade300),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class ButtonGoogle extends StatelessWidget {
-  const ButtonGoogle({
+class ButtonWithLogo extends StatelessWidget {
+  final String svgLogo;
+  final String textButton;
+
+  const ButtonWithLogo({
     Key key,
+    @required this.svgLogo,
+    @required this.textButton,
   }) : super(key: key);
 
   @override
@@ -250,14 +172,14 @@ class ButtonGoogle extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              'assets/icons/google-logo.svg',
+              this.svgLogo,
               height: 25.0,
             ),
             SizedBox(
               width: 20.0,
             ),
             Text(
-              'Use Google Account',
+              this.textButton,
               style: Theme.of(context).textTheme.subtitle1.copyWith(
                   fontWeight: FontWeight.bold, color: Colors.blueGrey.shade300),
             )
@@ -275,7 +197,8 @@ class Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      padding: EdgeInsets.only(top: 50.0, bottom: 40.0),
       child: Text('Login',
           style: Theme.of(context).textTheme.headline3.copyWith(
                 color: Colors.black,
