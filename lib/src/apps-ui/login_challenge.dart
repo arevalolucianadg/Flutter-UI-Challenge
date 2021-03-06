@@ -35,6 +35,8 @@ class LoginChallenge extends StatelessWidget {
                   ),
                   const CustomInput(labelText: 'Password', isPassword: true),
                   const SectionForgotPassword(),
+                  const GradientButton(),
+                  const LinkSignUp(),
                   SizedBox(
                     height: MediaQuery.of(context).viewInsets.bottom,
                   ),
@@ -43,6 +45,67 @@ class LoginChallenge extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class LinkSignUp extends StatelessWidget {
+  const LinkSignUp({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 40.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Don\'t have an account?'),
+          SizedBox(width: 4.0),
+          TextButton(
+            onPressed: () {},
+            child: Text('Sign Up'),
+            style: TextButton.styleFrom(primary: Color(0xFF5b69f9)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class GradientButton extends StatelessWidget {
+  const GradientButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(vertical: 20.0),
+        padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+        child: Center(
+          child: Text(
+            'Login',
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Colors.white,
+                fontSize: 18.0,
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),
+          gradient: LinearGradient(colors: [
+            const Color(0xFFF76153),
+            const Color(0xFFDE3377),
+          ]),
+        ));
   }
 }
 
@@ -87,9 +150,9 @@ class SectionForgotPassword extends StatelessWidget {
             onPressed: () {},
             child: Text('Forgot Password?'),
             style: TextButton.styleFrom(
-                primary: Color(0xFF5b69f9),
-                textStyle: TextStyle(fontWeight: FontWeight.bold)),
-          )
+              primary: Color(0xFF5b69f9),
+            ),
+          ),
         ],
       ),
     );
@@ -118,27 +181,33 @@ class CustomInput extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1
-                      .copyWith(color: Colors.blueGrey.shade700)),
+                      .copyWith(color: Colors.blueGrey.shade500)),
               SizedBox(
                 height: 8.0,
               ),
               TextField(
                 obscureText: this.isPassword,
                 style: TextStyle(fontSize: 22.0),
+                cursorColor: Color(0xFF5b69f9),
                 decoration: InputDecoration(
-                    border: new OutlineInputBorder(
-                        borderRadius: new BorderRadius.only(
-                            topLeft: Radius.circular(10.0),
-                            topRight: Radius.circular(10.0),
-                            bottomLeft: Radius.circular(10.0),
-                            bottomRight: Radius.circular(10.0)),
-                        borderSide:
-                            new BorderSide(color: Colors.blueGrey.shade400)),
+                    enabledBorder: new OutlineInputBorder(
+                      borderRadius: new BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                          bottomLeft: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0)),
+                      borderSide:
+                          new BorderSide(color: Colors.blueGrey.shade100),
+                    ),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                     focusedBorder: new OutlineInputBorder(
-                      borderSide:
-                          new BorderSide(color: Colors.blueGrey.shade900),
+                      borderRadius: new BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0),
+                          bottomLeft: Radius.circular(10.0),
+                          bottomRight: Radius.circular(10.0)),
+                      borderSide: new BorderSide(color: Color(0xFF5b69f9)),
                     )),
               ),
             ],
@@ -157,11 +226,12 @@ class TextDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 40.0),
+      padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: Row(
         children: [
           Expanded(
             child: Divider(
+              color: Colors.blueGrey.shade50,
               thickness: 2.0,
             ),
           ),
@@ -173,13 +243,14 @@ class TextDivider extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .subtitle1
-                .copyWith(color: Colors.blueGrey.shade800),
+                .copyWith(color: Colors.blueGrey.shade400),
           ),
           SizedBox(
             width: 10.0,
           ),
           Expanded(
             child: Divider(
+              color: Colors.blueGrey.shade50,
               thickness: 2.0,
             ),
           ),
@@ -249,7 +320,7 @@ class Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 50.0, bottom: 40.0),
+      padding: EdgeInsets.symmetric(vertical: 40.0),
       child: Text('Login',
           style: Theme.of(context).textTheme.headline3.copyWith(
                 color: Colors.black,
