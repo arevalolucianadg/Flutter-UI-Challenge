@@ -11,13 +11,10 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.teal,
-          textTheme: GoogleFonts.latoTextTheme(textTheme),
         ),
         initialRoute: '/',
         routes: getRoutes(),
