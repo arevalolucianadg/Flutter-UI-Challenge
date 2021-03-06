@@ -34,12 +34,63 @@ class LoginChallenge extends StatelessWidget {
                     height: 10.0,
                   ),
                   const CustomInput(labelText: 'Password', isPassword: true),
+                  const SectionForgotPassword(),
                   SizedBox(
                     height: MediaQuery.of(context).viewInsets.bottom,
                   ),
                 ],
               )),
         ),
+      ),
+    );
+  }
+}
+
+class SectionForgotPassword extends StatelessWidget {
+  const SectionForgotPassword({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Transform.scale(
+                scale: 1.2,
+                child: Switch(
+                  onChanged: (bool newValue) {
+                    print(newValue);
+                  },
+                  value: true,
+                  activeColor: Colors.white,
+                  activeTrackColor: Color(0xFF5b69f9),
+                ),
+              ),
+              SizedBox(
+                width: 8.0,
+              ),
+              Text(
+                'Remember me',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(color: Colors.black, fontWeight: FontWeight.w600),
+              )
+            ],
+          ),
+          TextButton(
+            onPressed: () {},
+            child: Text('Forgot Password?'),
+            style: TextButton.styleFrom(
+                primary: Color(0xFF5b69f9),
+                textStyle: TextStyle(fontWeight: FontWeight.bold)),
+          )
+        ],
       ),
     );
   }
