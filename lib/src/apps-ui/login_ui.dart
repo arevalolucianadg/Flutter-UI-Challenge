@@ -9,7 +9,6 @@ class LoginUi extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return MaterialApp(
-      title: 'Material App',
       theme: ThemeData(
         textTheme: GoogleFonts.latoTextTheme(textTheme),
       ),

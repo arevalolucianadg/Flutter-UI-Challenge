@@ -6,6 +6,20 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+                icon: Icon(
+                  Icons.more_vert,
+                  color: Colors.blueGrey,
+                ),
+                onPressed: () {}),
+          ],
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        extendBodyBehindAppBar: true,
+        drawer: DrawerMenu(),
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           reverse: true,
@@ -42,6 +56,19 @@ class MainPage extends StatelessWidget {
               )),
         ),
       ),
+    );
+  }
+}
+
+class DrawerMenu extends StatelessWidget {
+  const DrawerMenu({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Text('Drawer'),
     );
   }
 }
