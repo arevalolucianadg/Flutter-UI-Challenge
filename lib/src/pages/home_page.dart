@@ -1,52 +1,100 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter_ui_challenge/src/providers/menu_provider.dart';
+import 'package:flutter_ui_challenge/src/apps-ui/login_ui/login_ui.dart';
+import 'package:flutter_ui_challenge/src/apps-ui/pet_profile/pet_profile.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter UI Home'),
-      ),
       body: SafeArea(
-          child: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Container(child: _menu()),
+          child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 18.0),
+              child: Text(
+                'Flutter UI',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline3
+                    .copyWith(color: Colors.grey.shade900),
+              ),
+            ),
+            ProjectsList(),
+          ],
+        ),
       )),
     );
   }
+}
 
-  Widget _menu() {
+class ProjectsList extends StatelessWidget {
+  const ProjectsList({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
-      future: menuProvider.getData(),
       initialData: [],
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
-        return ListView(
-          children: _menuList(snapshot.data, context),
+        return Expanded(
+          child: ListView(
+            children: [
+              Project(
+                projectPage: LoginUi(),
+                projectName: 'Login UI',
+              ),
+              Project(
+                projectPage: PetProfile(),
+                projectName: 'PetProfile',
+              ),
+            ],
+          ),
         );
       },
     );
   }
+}
 
-  List<Widget> _menuList(List<dynamic> data, BuildContext context) {
-    final List<Widget> menuItems = [];
-    print(data);
-    for (var item in data) {
-      final widgetTemp = GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, item['route']);
-        },
-        child: _menuCard(context, item),
-      );
+class Project extends StatelessWidget {
+  final String projectName;
+  final Widget projectPage;
 
-      menuItems..add(widgetTemp)..add(SizedBox(height: 12.0));
-    }
+  const Project({
+    Key key,
+    @required this.projectName,
+    @required this.projectPage,
+  }) : super(key: key);
 
-    return menuItems;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => this.projectPage));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 8.0),
+        child: CardProject(
+          projectTitle: this.projectName,
+        ),
+      ),
+    );
   }
+}
 
-  Widget _menuCard(context, item) {
+class CardProject extends StatelessWidget {
+  final String projectTitle;
+
+  const CardProject({
+    Key key,
+    @required this.projectTitle,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       elevation: 5.0,
       shadowColor: const Color(0xfff5f5f5),
@@ -58,10 +106,7 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
         ),
         SizedBox(width: 30.0),
-        Text(
-          item['name'],
-          // style: Theme.of(context).textTheme.title,
-        ),
+        Text(this.projectTitle),
       ]),
     );
   }

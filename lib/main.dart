@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter_ui_challenge/src/routes/routes.dart';
 import 'package:flutter_ui_challenge/src/pages/not_found_page.dart';
